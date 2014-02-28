@@ -57,5 +57,5 @@ Also, an instance of Parallelizer is, of course, threadsafe. Feel free to have j
 gem 'parallelizer'
 ```
 
-##MRI?
-I'm using ThreadPoolExecutor from Java, if someone can point me to / make a replication in pure Ruby I'd be happy generalize this project to also work on MRI
+##MRI & Rubinius?
+I'm using ThreadPoolExecutor from Java, if someone can point me to / make a replication in pure Ruby I'd be happy generalize this project to also work on MRI & Rubinius
