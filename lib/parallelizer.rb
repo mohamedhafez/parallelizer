@@ -107,14 +107,12 @@ class Parallelizer
       if i < computation_array.size - 1
         task = FutureTask.new(comp)
 
-      begin
-        @pool.execute task
-      rescue Java::JavaUtilConcurrent::RejectedExecutionException
-        raise RejectedExecutionException.new($!.message)
-      end
-
-        
-        future_tasks << task
+        begin
+          @pool.execute task
+          future_tasks << task
+        rescue Java::JavaUtilConcurrent::RejectedExecutionException
+          results_array[i] = RejectedExecutionError.new($!.message)
+        end
       else #last element, run it in this thread
         comp.call
       end
