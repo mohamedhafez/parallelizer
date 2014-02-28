@@ -58,4 +58,4 @@ gem 'parallelizer'
 ```
 
 ##MRI & Rubinius?
-I'm using ThreadPoolExecutor from Java, if someone can point me to / make a replication in pure Ruby I'd be happy generalize this project to also work on MRI & Rubinius
+I'm using ThreadPoolExecutor from Java, if someone can find/make a replication in pure Ruby it'd be pretty easy to make this also work on MRI & Rubinius
