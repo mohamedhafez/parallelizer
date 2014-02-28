@@ -82,9 +82,9 @@ class Parallelizer
 
     def test_delay
       delay = nil
-      if @parallelizer.max_acceptable_delay && @parallelizer.delayed_too_long_proc && @execution_requested_time
+      if @parallelizer.max_acceptable_delay && @parallelizer.delayed_too_long_proc && @execution_requested_time &&
           (delay = Time.now.to_f - @execution_requested_time.to_f) > @parallelizer.max_acceptable_delay
-        @parallelizer.delayed_to_long_proc.call(delay)
+        @parallelizer.delayed_too_long_proc.call(delay)
       end
     end
   end
