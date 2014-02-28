@@ -18,6 +18,9 @@ java_import 'org.rubygems.parallelizer.DefaultDaemonThreadFactory'
 
 
 class Parallelizer
+  class RejectedExecutionError < RuntimeError
+  end
+
   attr_accessor :max_acceptable_delay, :delayed_too_long_proc
 
   def initialize ops={} #:core_pool_threads, :max_pool_threads, :keep_alive_time, :max_acceptable_delay, :delayed_too_long_proc, :prestart_all_core_threads
@@ -44,6 +47,10 @@ class Parallelizer
 
   def shutdown
     @pool.shutdown
+  end
+
+  def await_termination(seconds)
+    @pool.await_termination(seconds, TimeUnit::SECONDS)
   end
 
   #works like a normal map, but in parallel, and also if an exception is raised that exception
@@ -99,7 +106,14 @@ class Parallelizer
 
       if i < computation_array.size - 1
         task = FutureTask.new(comp)
+
+      begin
         @pool.execute task
+      rescue Java::JavaUtilConcurrent::RejectedExecutionException
+        raise RejectedExecutionException.new($!.message)
+      end
+
+        
         future_tasks << task
       else #last element, run it in this thread
         comp.call
