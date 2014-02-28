@@ -13,7 +13,7 @@ A ton of libraries already do this; what makes this one different?
 
 3) Does not automatically raise exceptions; instead the exception of any task is saved and returned to you along with the valid results of other tasks. This will allow your code to deal with partially successful results if it so chooses.
 
-4) Allows you to pass a proc that will be executed if a scheduled task takes over a configurable amount of time to be assigned to a thread, so that you can log or email the admin about (so you can tell if you need to increase the thread pool size)
+4) Allows you to pass a proc that will be executed if a scheduled task takes over a configurable amount of time to be assigned to a thread, so that you can log or email the admin about it (so you can tell if you need to increase the thread pool size)
 
 ##Initializing
 
