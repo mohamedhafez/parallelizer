@@ -31,12 +31,12 @@ p = Parallelizer.new core_pool_threads: 20, max_pool_threads: 30, max_acceptable
     delayed_too_long_proc: Proc.new {|delay|  puts delay }
 ```
 
-##Using
+##Use
 
 Parallelizer#run takes an array of procs to run, and gives you back an equally sized array with the results of each proc (or the exception raised by it).
 
 ```ruby
-p.run [Proc.new { 2-1 }, Proc.new { raise "hello!" }, Proc.new { 1+2 }]
+p.run [Proc.new { 2 - 1 }, Proc.new { raise "hello!" }, Proc.new { 1 + 2 }]
 ==>  [1, <RuntimeError: hello!>, 3]
 ```
 
