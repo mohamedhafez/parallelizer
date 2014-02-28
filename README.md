@@ -33,7 +33,7 @@ p = Parallelizer.new core_pool_threads: 20, max_pool_threads: 30, max_acceptable
 
 ##Using
 
-Paralellizer#run takes an array of procs to run, and gives you back an equally sized array with the results of each proc (or the exception raised by it).
+Parallelizer#run takes an array of procs to run, and gives you back an equally sized array with the results of each proc (or the exception raised by it).
 
 ```ruby
 p.run [Proc.new { 2-1 }, Proc.new { raise "hello!" }, Proc.new { 1+2 }]
@@ -47,7 +47,7 @@ p.map([2,4,0]) {|i| 12 / i }
 ==> [6, 3, <ZeroDivisionError: divided by 0>]
 ```
 
-Also, an instance of Parallelizable is, of course, threadsafe. Feel free to have just one global/class instance that you use from many different threads.
+Also, an instance of Parallelizer is, of course, threadsafe. Feel free to have just one global/class instance that you use from many different threads.
 
 ##Installation
 ```ruby
