@@ -47,6 +47,9 @@ p.map([2,4,0]) {|i| 12 / i }
 ==> [6, 3, <ZeroDivisionError: divided by 0>]
 ```
 
+If you no longer need the thread pool, you can shut it down to destroy its threads: `p.shutdown`
+
+
 Also, an instance of Parallelizer is, of course, threadsafe. Feel free to have just one global/class instance that you use from many different threads.
 
 ##Installation
