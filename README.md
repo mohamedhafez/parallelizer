@@ -13,13 +13,13 @@ A ton of libraries already do this; what makes this one different?
 
 3) Does not automatically raise exceptions; instead the exception of any task is saved and returned to you along with the valid results of other tasks. This will allow your code to deal with partially successful results if it so chooses.
 
-4) Allows you to pass a proc that will be executed if a scheduled task takes over a configurable amount of time to be assigned to a thread, so that you can log or email the admin about it (so you can tell if you need to increase the thread pool size)
+4) Allows you to pass a proc that will be executed if a scheduled task takes over a configurable amount of time to be assigned to a thread, so you can monitor if you need to increase the thread pool size.
 
 ##Initializing
 
 First, you'll need to initialize a Parallelizer object, which will encapsulate your thread pool. Optional arguments are:
 - `:core_pool_threads`: minimum number of threads in the pool (default 10)
-- `:max_pool_threads`: max threads in pool (default 10)
+- `:max_pool_threads`: max threads in the pool (default 10)
 - `:keep_alive_time`: if there are more than the min # of threads, time in seconds to keep them around if they are idle (default 60)
 - `:max_acceptable_delay`: if a task took longer than this number of seconds to be scheduled, run `:delayed_too_long_proc` (can be a float, defaults to nil)
 - `:delayed_too_long_proc`: A proc that takes the delay in seconds as an argument, to be run if the task took more longer than `:max_acceptable_delay` to get run in the pool (defaults to nil)
