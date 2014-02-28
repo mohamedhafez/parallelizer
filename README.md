@@ -9,7 +9,7 @@ A ton of libraries already do this; what makes this one different?
 
 1) Instead of creating and tearing down threads for every set of parallel operations, a persistent thread pool is reused.
 
-2) Utilizes the calling thread to run one of the tasks, in order to help in keeping the required thread pool size to a minimum. (If only one task is to be run, it gets run on the calling thread and the pool doesn't get used at all)
+2) Utilizes the calling thread to run one of the tasks, in order to help in keeping the required thread pool size to a minimum.
 
 3) Does not automatically raise exceptions; instead the exception of any task is saved and returned to you along with the valid results of other tasks. This will allow your code to deal with partially successful results if it so chooses.
 
@@ -33,14 +33,14 @@ p = Parallelizer.new core_pool_threads: 20, max_pool_threads: 30, max_acceptable
 
 ##Use
 
-Parallelizer#run takes an array of procs to run, and gives you back an equally sized array with the results of each proc (or the exception raised by it).
+Parallelizer#run takes an array of procs to run, and gives you back an equally sized array with the results of each proc, or the exception raised by it. (The last item in the array will be the one run in the calling thread. If you only have one item in the array, the thread pool won't be used at all)
 
 ```ruby
 p.run [Proc.new { 2 - 1 }, Proc.new { raise "hello!" }, Proc.new { 1 + 2 }]
  =>  [1, <RuntimeError: hello!>, 3]
 ```
 
-As a convenience, a `map` method is also available, that takes any Enumerable, and passes each object in it to supplied block, to be mapped to an array. The only difference between this and the regular Enumerable#map is that any mappings that raise an exception will have the exception mapped to that location.
+As a convenience, a `map` method is also available, that takes any Enumerable, and passes each object in it to supplied block, to be mapped to an array. The only difference between this and the regular Enumerable#map is that any mappings that raise an exception will have the exception mapped to that location. (The last item in the enumerable will be the one run in the calling thread. If you only have one item in the enumerable, the thread pool won't be used at all)
 
 ```ruby
 p.map([2,4,0]) {|i| 12 / i }
