@@ -120,7 +120,7 @@ class Parallelizer
 
     future_tasks.each {|task| task.get } #wait for all tasks to complete
 
-    if ops[:auto_raise] && (e = results_array.detect {|r| r.kind_of? Exception })
+    if ops[:auto_raise] && (e = results_array.detect {|r| r.kind_of?(Exception) || r.kind_of?(Java::JavaLang::Exception) })
       raise e 
     end
 

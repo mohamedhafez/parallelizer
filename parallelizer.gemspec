@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'parallelizer'
-  s.version     = '0.0.5'
+  s.version     = '0.0.6'
   s.date        = '2014-02-28'
   s.summary     = "Run commands in parallel in JRuby, on a reusable thread pool"
   s.description = "Run commands in parallel in JRuby, on a reusable thread pool"
