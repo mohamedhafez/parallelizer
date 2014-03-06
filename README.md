@@ -11,7 +11,7 @@ A ton of libraries already do this; what makes this one different?
 
 2) Utilizes the calling thread to run one of the tasks, in order to help in keeping the required thread pool size to a minimum.
 
-3) Does not automatically raise exceptions; instead the exception of any task is saved and returned to you along with the valid results of other tasks. This will allow your code to deal with partially successful results if it so chooses.
+3) Unless you specifically set an option to do so, does not automatically raise exceptions; instead the exception of any task is saved and returned to you along with the valid results of other tasks, allowing your code to deal with partially successful results if it so chooses. 
 
 4) Allows you to pass a proc that will be executed if a scheduled task takes over a configurable amount of time to be assigned to a thread, so you can monitor if you need to increase the thread pool size.
 
@@ -46,6 +46,16 @@ As a convenience, a `map` method is also available, that takes any Enumerable, a
 p.map([2,4,0]) {|i| 12 / i }
  => [6, 3, <ZeroDivisionError: divided by 0>]
 ```
+
+If you would like to have any exceptions automatically raised instead of returned to you in the array, you can pass the `auto_raise: true` as an options hash:
+```ruby
+//This will result in a RuntimeError being thrown:
+p.run [Proc.new { 2 - 1 }, Proc.new { raise "hello!" }, Proc.new { 1 + 2 }], auto_raise: true
+
+//This will result in a ZeroDivisionError being thrown:
+p.map([2,4,0]) {|i| 12 / i }
+```
+
 
 ##Shutting down
 

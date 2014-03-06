@@ -55,13 +55,13 @@ class Parallelizer
 
   #works like a normal map, but in parallel, and also if an exception is raised that exception
   #will be stored in that index instead of the result
-  def map enumerator, &proc
-    run_computation_array enumerator.map {|arg| Computation.new(self, proc, arg) }
+  def map enumerator, ops={}, &proc
+    run_computation_array(enumerator.map {|arg| Computation.new(self, proc, arg) }, ops)
   end
 
   #expects an array of procs
-  def run array
-    run_computation_array array.map {|proc| Computation.new(self, proc) }
+  def run array, ops={}
+    run_computation_array(array.map {|proc| Computation.new(self, proc) }, ops)
   end
 
   protected
@@ -96,7 +96,7 @@ class Parallelizer
     end
   end
 
-  def run_computation_array computation_array
+  def run_computation_array computation_array, ops
     results_array = Array.new(computation_array.size)
     future_tasks = []
     computation_array.each_with_index {|comp, i|
@@ -119,6 +119,11 @@ class Parallelizer
     }
 
     future_tasks.each {|task| task.get } #wait for all tasks to complete
+
+    if ops[:auto_raise] && (e = results_array.detect {|r| r.kind_of? Exception })
+      raise e 
+    end
+
     results_array
   end
 end
