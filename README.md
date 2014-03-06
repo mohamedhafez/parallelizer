@@ -47,12 +47,12 @@ p.map([2,4,0]) {|i| 12 / i }
  => [6, 3, <ZeroDivisionError: divided by 0>]
 ```
 
-If you would like to have any exceptions automatically raised instead of returned to you in the array, you can pass the `auto_raise: true` as an options hash:
+If you would like to have any exceptions automatically raised instead of returned to you in the array, you can pass `auto_raise: true` as an options hash:
 ```ruby
-//This will result in a RuntimeError being thrown:
+#This will result in a RuntimeError being thrown:
 p.run [Proc.new { 2 - 1 }, Proc.new { raise "hello!" }, Proc.new { 1 + 2 }], auto_raise: true
 
-//This will result in a ZeroDivisionError being thrown:
+#This will result in a ZeroDivisionError being thrown:
 p.map([2,4,0]) {|i| 12 / i }
 ```
 
