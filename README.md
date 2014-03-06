@@ -53,7 +53,7 @@ If you would like to have any exceptions automatically raised instead of returne
 p.run [Proc.new { 2 - 1 }, Proc.new { raise "hello!" }, Proc.new { 1 + 2 }], auto_raise: true
 
 #This will result in a ZeroDivisionError being thrown:
-p.map([2,4,0]) {|i| 12 / i }
+p.map([2,4,0], auto_raise: true) {|i| 12 / i }
 ```
 
 
